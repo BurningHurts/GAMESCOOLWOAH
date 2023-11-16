@@ -10,8 +10,10 @@ public class movement : MonoBehaviour
     private float jumpingPower = 10f;
     private bool isFacingRight = true;
 
+    private Animator anim;
+
     private bool doubleJump;
-    private float doubleJumpingPower = 0f;
+    private float doubleJumpingPower = 10f;
 
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
@@ -38,6 +40,11 @@ public class movement : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
 
+    void start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -48,6 +55,22 @@ public class movement : MonoBehaviour
         }
 
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (horizontal > 0f)
+        {
+            anim.SetBool("running",true);
+        }
+        else if (horizontal < 0f)
+        {
+            anim.SetBool("running",true);
+        }
+        else 
+        {
+            anim.SetBool("running",false);
+        }
+
+
+
 
         if (IsGrounded() && !Input.GetButton("Jump"))
         {
